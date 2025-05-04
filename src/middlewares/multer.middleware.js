@@ -9,8 +9,8 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         const fileExt = path.extname(file.originalname);
         const fileName = file.originalname
-            .replace(/\s+/g, "_") // Convert spaces to underscores
-            .replace(/[^a-zA-Z0-9_.-]/g, ""); // Remove special characters
+            .replace(/\s+/g, "_") 
+            .replace(/[^a-zA-Z0-9_.-]/g, "");
         console.log("Saving file as:", fileName);  
         cb(null, fileName);
     }
