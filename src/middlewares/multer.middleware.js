@@ -1,19 +1,15 @@
 import multer from "multer";
-import path from "path";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log("Saving file to: public/uploads/");  
-        cb(null, 'public/uploads/');
+      cb(null, "./public/temp")
     },
     filename: function (req, file, cb) {
-        const fileExt = path.extname(file.originalname);
-        const fileName = file.originalname
-            .replace(/\s+/g, "_") 
-            .replace(/[^a-zA-Z0-9_.-]/g, "");
-        console.log("Saving file as:", fileName);  
-        cb(null, fileName);
+      
+      cb(null, file.originalname)
     }
-});
-
-export const upload = multer({ storage });
+  })
+  
+export const upload = multer({ 
+    storage, 
+})
