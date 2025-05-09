@@ -1,4 +1,14 @@
-const getVideoComments = asyncHandler(async (req, res) => {
+// src/controllers/comment.controller.js
+
+import { Comment } from "../models/comment.model.js"; // Import the Comment model
+import { ApiError } from "../utils/ApiError.js"; // Custom error handling
+import { ApiResponse } from "../utils/ApiResponse.js"; // Custom response formatting
+import mongoose, { isValidObjectId } from "mongoose"; // Import necessary mongoose functions
+import { asyncHandler } from "../utils/asyncHandler.js";  // Add this import statement
+
+
+// Get Comments for a Video with Pagination
+export const getVideoComments = asyncHandler(async (req, res) => {
     const { videoId } = req.params;
     const { page = 1, limit = 10 } = req.query;
 
@@ -15,11 +25,12 @@ const getVideoComments = asyncHandler(async (req, res) => {
     });
 
     res.status(200).json(
-        new ApiResponse(200, result, "Fetched video comments")
+        new ApiResponse(200, result, "Fetched video comments successfully")
     );
 });
 
-const addComment = asyncHandler(async (req, res) => {
+// Add Comment
+export const addComment = asyncHandler(async (req, res) => {
     const { videoId, content } = req.body;
 
     if (!videoId || !content) {
@@ -41,7 +52,8 @@ const addComment = asyncHandler(async (req, res) => {
     );
 });
 
-const updateComment = asyncHandler(async (req, res) => {
+// Update Comment
+export const updateComment = asyncHandler(async (req, res) => {
     const { commentId } = req.params;
     const { content } = req.body;
 
@@ -66,7 +78,8 @@ const updateComment = asyncHandler(async (req, res) => {
     );
 });
 
-const deleteComment = asyncHandler(async (req, res) => {
+// Delete Comment
+export const deleteComment = asyncHandler(async (req, res) => {
     const { commentId } = req.params;
 
     if (!isValidObjectId(commentId)) {
